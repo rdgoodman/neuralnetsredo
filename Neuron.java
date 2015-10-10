@@ -70,6 +70,14 @@ public class Neuron {
 			if (!isOutputNode) {
 				output = f.calcfx(output);
 			}
+			
+			// TODO: testing, remove
+			if (isOutputNode){
+				System.out.println("Inputs :");
+				for (int i = 0; i < inputs.size();i++){
+					System.out.print(inputs.get(i) + "  ");
+				}
+			}
 		}
 
 		return output;

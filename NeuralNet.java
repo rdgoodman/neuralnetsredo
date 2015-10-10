@@ -95,11 +95,12 @@ public class NeuralNet {
 		Neuron biasNode = new Neuron(f,0,0,0);
 		biasNode.setBias(true);
 		inputNodes.add(biasNode);
-		//other nodes
+		//other input nodes
 		for (int n = 1; n <= inputs.size(); n++){
 			Neuron node = new Neuron(f,0,n,0);
 			node.addInput(inputs.get(n-1));
 			node.setOutput(inputs.get(n-1));
+			node.setInputNode(true);
 			inputNodes.add(node);
 			
 		}
@@ -109,7 +110,14 @@ public class NeuralNet {
 		for (int l = 1; l < layers - 1; l++){
 			ArrayList<Neuron> newLayer = new ArrayList<Neuron>();
 			for (int n = 0; n < numHiddenNodesPerLayer; n++){
-				Neuron node = new Neuron(f,l,n,nodes.get(l-1).size()+1);
+				Neuron node;
+				if (l == 1){
+					// first hidden layer already includes bias in the number of inputs
+				    node = new Neuron(f,l,n,nodes.get(l-1).size());
+				} else {
+					// need to add 1 since bias is also an input
+					node = new Neuron(f,l,n,nodes.get(l-1).size()+1);
+				}
 				newLayer.add(node);
 			}
 			nodes.add(newLayer);
@@ -118,7 +126,9 @@ public class NeuralNet {
 		// output layer
 		ArrayList<Neuron> outputNodes = new ArrayList<Neuron>();
 		for (int n = 0; n < numOutputs; n++){
+			// .size()+1 is because of bias node
 			Neuron node = new Neuron(f, layers-1, n, nodes.get(layers-2).size()+1);
+			node.setOutputNode(true);
 			outputNodes.add(node);
 		}
 		nodes.add(outputNodes);
