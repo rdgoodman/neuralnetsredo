@@ -102,6 +102,7 @@ public class NeuralNet {
 		// 1) output layer
 		int target = 0;
 		for (Neuron n : nodes.get(layers-1)){
+			System.out.println(n.toString());
 			// calculates delta
 			Double d = calcOutputDelta(n, targetOutputs.get(target));
 
@@ -109,7 +110,7 @@ public class NeuralNet {
 			for (int w = 0; w < n.getWeights().size(); w++){
 				System.out.println(n.getWeights().get(w) + " -- Output delta: " + d);
 				System.out.println(n.getWeights().get(w) + " -- Output <>w: " + calcOutputWeightChange(n, d, w));
-				n.getWeights().set(w, calcOutputWeightChange(n, d, w));
+				n.getWeights().set(w, n.getWeights().get(w) + calcOutputWeightChange(n, d, w));
 				System.out.println();
 			}			
 			target++;
@@ -133,6 +134,7 @@ public class NeuralNet {
 	
 	/** Calculates weight change for an output node */
 	protected Double calcOutputWeightChange(Neuron n, Double delta, int weightIndex){
+		System.out.println("delta_w = " + eta + " * " + delta + " * " + n.getInputs().get(weightIndex));
 		return (eta * delta * n.getInputs().get(weightIndex));
 	}
 	
