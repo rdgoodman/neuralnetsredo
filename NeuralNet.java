@@ -97,7 +97,9 @@ public class NeuralNet {
 		generateOutput();
 		testTerminationCriterion();
 		
+		// below here is actual backprop
 		
+		// 1) output layer
 		
 		
 		// TODO: for all nodes, clear inputs 

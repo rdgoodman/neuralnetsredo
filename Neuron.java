@@ -14,7 +14,8 @@ public class Neuron {
 	private ArrayList<Double> inputs;
 	private ArrayList<Double> weights;
 	private double output = 0;
-	private double error = 0;
+	//private double error = 0;
+	private Double delta = 0.0;
 
 	// these two only have meaning if it's part of a network
 	private int layer = 0;
@@ -175,14 +176,23 @@ public class Neuron {
 	public void setOutput(double output) {
 		this.output = output;
 	}
+	
+	public Double getDelta(){
+		return delta;
+	}
+	
+	public void setDelta(Double delta){
+		this.delta = delta;
+	}
+	
 
-	public double getError() {
+	/** public double getError() {
 		return error;
 	}
 
 	public void setError(double error) {
 		this.error = error;
-	}
+	} */
 
 	public int getLayer() {
 		return layer;
