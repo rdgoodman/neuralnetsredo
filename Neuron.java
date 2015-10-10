@@ -107,6 +107,10 @@ public class Neuron {
 		}
 	}
 	
+	public void clearInputs(){
+		inputs.clear();
+	}
+	
 	public String toString() {
 		String s = "";
 		if (isBias) {
