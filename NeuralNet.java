@@ -116,10 +116,25 @@ public class NeuralNet {
 			target++;
 		}
 		
+		// 2) hidden layers
+		for (int layer = (layers - 2); layer >= 0; layer--) {
+			for (Neuron n : nodes.get(layer)){
+				Double d = calcOutputDelta(n);
+			}
+		}
+		
 		
 		// TODO: for all nodes, clear inputs 
 		// (output already taken care of in Neuron.calcOutput()
 	}
+	
+	/** Calculates delta for a hidden node */
+	protected Double calcOutputDelta(Neuron n) {
+		Double delta = n.getActivation().partialDeriv(n.getOutput());
+		delta * = 
+		return -1.0;
+	}
+	
 	
 	/** Calculates delta for an output node */
 	protected Double calcOutputDelta(Neuron n, Double target) {
@@ -127,6 +142,7 @@ public class NeuralNet {
 		Double delta = -1
 				* n.getError().calcDerivwrtOutput(n.getOutput(), target);
 		delta *= n.getActivation().partialDeriv(n.getOutput());
+		n.setDelta(delta);
 		// TODO: testing, remove
 		System.out.println("delta = -1 * " + n.getError().calcDerivwrtOutput(n.getOutput(), target) + " * " + n.getActivation().partialDeriv(n.getOutput()));
 		return delta;
