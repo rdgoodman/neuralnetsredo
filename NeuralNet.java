@@ -3,6 +3,7 @@ package FeedForward;
 import java.util.ArrayList;
 
 
+
 public class NeuralNet {
 
 	private int layers;
@@ -119,7 +120,7 @@ public class NeuralNet {
 		// 2) hidden layers
 		for (int layer = (layers - 2); layer >= 0; layer--) {
 			for (Neuron n : nodes.get(layer)){
-				Double d = calcOutputDelta(n);
+				Double d = calcOutputDelta(n, n.getDepth());
 			}
 		}
 		
@@ -129,9 +130,14 @@ public class NeuralNet {
 	}
 	
 	/** Calculates delta for a hidden node */
-	protected Double calcOutputDelta(Neuron n) {
+	protected Double calcOutputDelta(Neuron n, int weightIndex) {
 		Double delta = n.getActivation().partialDeriv(n.getOutput());
-		delta * = 
+		
+		// loops through next layer
+		for (Neuron desc : n.getDescendants()) {
+			// factors in descendants' errors
+			delta += (desc.getDelta() * desc.getWeights().get(weightIndex));
+		}
 		return -1.0;
 	}
 	
