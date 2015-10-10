@@ -103,11 +103,11 @@ public class NeuralNet {
 		int target = 0;
 		for (Neuron n : nodes.get(layers-1)){
 			// calculates delta
-			calcOutputDelta(n, targetOutputs.get(target));
+			Double d = calcOutputDelta(n, targetOutputs.get(target));
 			
 			// calculates each weight change
 			for (int w = 0; w < n.getWeights().size(); w++){
-				
+				n.getWeights().set(w, calcOutputWeightChange(n, d, w));
 			}
 			
 			target++;
@@ -128,8 +128,8 @@ public class NeuralNet {
 	}
 	
 	/** Calculates weight change for an output node */
-	protected void calcOutputWeightChange(Neuron n, Double delta){
-		n.setWeightChange(eta);
+	protected Double calcOutputWeightChange(Neuron n, Double delta, int weightIndex){
+		return (eta * delta * n.getInputs().get(weightIndex));
 	}
 	
 	// TODO: this should be redone in terms of MSE
