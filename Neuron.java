@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
+
 public class Neuron {
 	
 	private ActivationFunction f;
@@ -76,6 +77,32 @@ public class Neuron {
 	
 	public void addInput(Double newInput){
 		inputs.add(newInput);
+	}
+	
+	/**
+	 * Adds input node to this node's list of ancestors, i.e. those nodes from
+	 * which it gets inputs
+	 * 
+	 * @param n
+	 *            the ancestor node to add
+	 */
+	public void addAncestor(Neuron n) {
+		if (!isInputNode) {
+			ancestors.add(n);
+		}
+	}
+
+	/**
+	 * Adds input node to this node's list of descendants, i.e. those nodes to
+	 * which it sends outputs
+	 * 
+	 * @param n
+	 *            the ancestor node to add
+	 */
+	public void addDescendant(Neuron n) {
+		if (!isOutputNode) {
+			descendants.add(n);
+		}
 	}
 	
 	public String toString() {
