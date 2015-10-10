@@ -13,6 +13,9 @@ public class NeuralNet {
 	private ArrayList<Double> inputs;
 	private ArrayList<Double> targetOutputs;
 	private ActivationFunction f;
+	
+	private double eta = .3;
+	private double epsilon = .00001;
 
 	/**
 	 * Creates a new feed-forward neural network
@@ -45,6 +48,9 @@ public class NeuralNet {
 	}
 	
 	protected void generateOutput(){
+		// TODO: clear outputs at start
+		outputs.clear();
+		
 		// input layer
 		for (Neuron n : nodes.get(0)){
 			for (Neuron d : n.getDescendants()) {
@@ -85,6 +91,29 @@ public class NeuralNet {
 			System.out.println(outputs.get(i));
 		}
 		System.out.println();
+	}
+	
+	protected void train(){
+		generateOutput();
+		testTerminationCriterion();
+		
+		
+		
+		
+		// TODO: for all nodes, clear inputs 
+		// (output already taken care of in Neuron.calcOutput()
+	}
+	
+	// TODO: this should be redone in terms of MSE
+	private boolean testTerminationCriterion(){
+		// terminates when all outputs are within a certain epsilon of target
+		for (int o = 0; o < numOutputs; o++){
+			if (Math.abs(outputs.get(o)-targetOutputs.get(o)) > epsilon){
+				return false;
+			}
+		}		
+		System.out.println("Within epsilon for all outputs");
+		return true;
 	}
 
 	/** Creates all nodes in network */

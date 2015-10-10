@@ -62,6 +62,8 @@ public class Neuron {
 			// input nodes just output their value
 			output = inputs.get(0);
 		} else {
+			output = 0;
+			
 			// calculates \sum_i w_i x_i
 			for (int i = 0; i < inputs.size(); i++) {
 				output += (weights.get(i) * inputs.get(i));
@@ -79,7 +81,6 @@ public class Neuron {
 				}
 			}
 		}
-
 		return output;
 	}
 	
