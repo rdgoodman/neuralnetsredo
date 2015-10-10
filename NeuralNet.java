@@ -49,16 +49,13 @@ public class NeuralNet {
 	}
 	
 	protected void generateOutput(){
-		// TODO: clear outputs at start
+		// clear outputs at start
 		outputs.clear();
 		
 		// input layer
 		for (Neuron n : nodes.get(0)){
 			for (Neuron d : n.getDescendants()) {
 				d.addInput(n.getOutput());
-//				 System.out.println("Node " + n.getLayer() + n.getDepth()
-//				 + " passed an input to node " + d.getLayer() +
-//				 d.getDepth());
 			}
 		}
 		
@@ -160,16 +157,17 @@ public class NeuralNet {
 	/** Calculates delta for a hidden node */
 	protected Double calcHiddenDelta(Neuron n, int weightIndex) {
 		Double delta = n.getActivation().partialDeriv(n.getOutput());
+		Double sumDS = 0.0;
 		
 		// loops through next layer
 		for (Neuron desc : n.getDescendants()) {
 			System.out.println("Calculating delta for " + n.toString());
 			// factors in descendants' errors
-			// TODO: should be weightIndex + 1 because weight to bias node always 1st
-			delta += (desc.getDelta() * desc.getWeights().get(weightIndex+1));
-			System.out.println("*** multiplying by weight " + desc.getWeights().get(weightIndex+1) + " at index " + weightIndex+1);
+			// should be weightIndex + 1 because weight to bias node always 1st
+			sumDS += (desc.getDelta() * desc.getWeights().get(weightIndex+1));
+			System.out.println("*** multiplying by weight " + desc.getWeights().get(weightIndex+1) + " at index " + (weightIndex+1));
 		}
-		return delta;
+		return delta * sumDS;
 	}
 	
 	

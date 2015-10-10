@@ -62,8 +62,7 @@ public class Neuron {
 	/** Batch updates all weights for this node */
 	public void updateWeights(){
 		for (int w = 0; w < weights.size(); w++){
-			// TODO: this is awful, Rollie, don't do it
-			weights.set(w, weights.get(w) + (-1 * delta_w.get(w)));
+			weights.set(w, weights.get(w) + delta_w.get(w));
 		}
 		delta_w.clear();
 	}
