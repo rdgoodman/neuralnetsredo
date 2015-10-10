@@ -16,6 +16,7 @@ public class Neuron {
 	private double output = 0;
 	
 	private Double delta = 0.0;
+	private ArrayList<Double> delta_w = new ArrayList<Double>();
 
 	// these two only have meaning if it's part of a network
 	private int layer = 0;
@@ -58,6 +59,14 @@ public class Neuron {
 	}
 
 	
+	/** Batch updates all weights for this node */
+	public void updateWeights(){
+		for (int w = 0; w < weights.size(); w++){
+			weights.set(w, weights.get(w) + delta_w.get(w));
+		}
+		delta_w.clear();
+	}
+
 	public double calcOutput(){
 		if (isInputNode) {
 			// input nodes just output their value
@@ -164,7 +173,11 @@ public class Neuron {
 	public void setWeights(ArrayList<Double> weights) {
 		this.weights = weights;
 	}
-
+	
+	public void addWeightChange(Double delta_w){
+		this.delta_w.add(delta_w);
+	}
+	
 	public double getOutput() {
 		return output;
 	}
