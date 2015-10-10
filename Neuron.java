@@ -14,7 +14,8 @@ public class Neuron {
 	private ArrayList<Double> inputs;
 	private ArrayList<Double> weights;
 	private double output = 0;
-	//private double error = 0;
+	
+	private Double weightChange = 0.0;
 	private Double delta = 0.0;
 
 	// these two only have meaning if it's part of a network
@@ -185,6 +186,14 @@ public class Neuron {
 		this.delta = delta;
 	}
 	
+
+	public Double getWeightChange() {
+		return weightChange;
+	}
+
+	public void setWeightChange(Double weightChange) {
+		this.weightChange = weightChange;
+	}
 
 	/** public double getError() {
 		return error;

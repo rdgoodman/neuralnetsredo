@@ -100,10 +100,23 @@ public class NeuralNet {
 		// below here is actual backprop
 		
 		// 1) output layer
+		for (Neuron n : nodes.get(layers-1)){
+			calcOutputDelta(n);
+		}
 		
 		
 		// TODO: for all nodes, clear inputs 
 		// (output already taken care of in Neuron.calcOutput()
+	}
+	
+	/** Calculates delta for an output node */
+	protected void calcOutputDelta(Neuron n){
+		
+	}
+	
+	/** Calculates weight change for an output node */
+	protected void calcOutputWeightChange(Neuron n){
+		
 	}
 	
 	// TODO: this should be redone in terms of MSE

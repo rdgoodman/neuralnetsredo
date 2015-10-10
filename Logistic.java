@@ -23,4 +23,8 @@ public class Logistic extends ActivationFunction{
 		return ((L)/(1 + Math.exp(-1*k*(x-xo))));
 	}
 	
+	public Double partialDeriv(Double neuronOutput){
+		return (neuronOutput * (1-neuronOutput));
+	}
+	
 }
