@@ -106,7 +106,7 @@ public class NeuralNet {
 
 			// calculates each weight change
 			for (int w = 0; w < n.getWeights().size(); w++){
-				System.out.println(n.getWeights().get(w) + " -- delta: " + d);
+				System.out.println(n.getWeights().get(w) + " -- Output delta: " + d);
 				System.out.println(n.getWeights().get(w) + " --  <>w: " + calcOutputWeightChange(n, d, w));
 				n.addWeightChange(calcOutputWeightChange(n, d, w));
 				//n.getWeights().set(w, n.getWeights().get(w) + calcOutputWeightChange(n, d, w));
@@ -124,7 +124,7 @@ public class NeuralNet {
 				
 				// calculates each weight change
 				for (int w = 0; w < n.getWeights().size(); w++){
-					System.out.println(n.getWeights().get(w) + " -- delta: " + d);
+					System.out.println(n.getWeights().get(w) + " -- Hidden delta: " + d);
 					System.out.println(n.getWeights().get(w) + " -- <>w: " + calcHiddenWeightChange(n, d, w));
 					n.addWeightChange(calcHiddenWeightChange(n, d, w));
 					//n.getWeights().set(w, n.getWeights().get(w) + calcHiddenWeightChange(n, d, w));
@@ -173,11 +173,11 @@ public class NeuralNet {
 	
 	/** Calculates delta for an output node */
 	protected Double calcOutputDelta(Neuron n, Double target) {
-		Double delta = -1 * n.getError().calcDerivwrtOutput(n.getOutput(), target);
+		Double delta = n.getError().calcDerivwrtOutput(n.getOutput(), target);
 		delta *= n.getActivation().partialDeriv(n.getOutput());
 		n.setDelta(delta);
 		// TODO: testing, remove
-		System.out.println("delta = -1 * " + n.getError().calcDerivwrtOutput(n.getOutput(), target) + " * " + n.getActivation().partialDeriv(n.getOutput()));
+		System.out.println("delta = " + n.getError().calcDerivwrtOutput(n.getOutput(), target) + " * " + n.getActivation().partialDeriv(n.getOutput()));
 		return delta;
 	}
 	

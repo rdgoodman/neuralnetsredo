@@ -12,7 +12,7 @@ public class MeanSquaredError {
 	 * @return
 	 */
 	public Double calcDerivwrtOutput(Double output, Double target){
-		return (-1 * (target - output));
+		return (target - output);
 	}
 
 }

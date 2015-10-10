@@ -35,11 +35,11 @@ public class NeuralNetTest {
 		inputs.add(-1.0);
 
 		ArrayList<Double> expectedOutput = new ArrayList<Double>();
-		expectedOutput.add(1.0);
+		expectedOutput.add(3.5);
 
 		NeuralNet net = new NeuralNet(1, 3, inputs, expectedOutput, true);
 		
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			net.train();
 		}
 		 net.print();
