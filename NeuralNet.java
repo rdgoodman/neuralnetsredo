@@ -100,8 +100,17 @@ public class NeuralNet {
 		// below here is actual backprop
 		
 		// 1) output layer
+		int target = 0;
 		for (Neuron n : nodes.get(layers-1)){
-			calcOutputDelta(n);
+			// calculates delta
+			calcOutputDelta(n, targetOutputs.get(target));
+			
+			// calculates each weight change
+			for (int w = 0; w < n.getWeights().size(); w++){
+				
+			}
+			
+			target++;
 		}
 		
 		
@@ -110,13 +119,17 @@ public class NeuralNet {
 	}
 	
 	/** Calculates delta for an output node */
-	protected void calcOutputDelta(Neuron n){
-		
+	protected Double calcOutputDelta(Neuron n, Double target) {
+		// -1 * deriverrorwrt output * deriv of activation function
+		Double delta = -1
+				* n.getError().calcDerivwrtOutput(n.getOutput(), target);
+		delta *= n.getActivation().partialDeriv(n.getOutput());
+		return delta;
 	}
 	
 	/** Calculates weight change for an output node */
-	protected void calcOutputWeightChange(Neuron n){
-		
+	protected void calcOutputWeightChange(Neuron n, Double delta){
+		n.setWeightChange(eta);
 	}
 	
 	// TODO: this should be redone in terms of MSE

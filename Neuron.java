@@ -15,7 +15,6 @@ public class Neuron {
 	private ArrayList<Double> weights;
 	private double output = 0;
 	
-	private Double weightChange = 0.0;
 	private Double delta = 0.0;
 
 	// these two only have meaning if it's part of a network
@@ -73,14 +72,6 @@ public class Neuron {
 			// output nodes do not use sigmoid function
 			if (!isOutputNode) {
 				output = f.calcfx(output);
-			}
-			
-			// TODO: testing, remove
-			if (isOutputNode){
-				System.out.println("Inputs :");
-				for (int i = 0; i < inputs.size();i++){
-					System.out.print(inputs.get(i) + "  ");
-				}
 			}
 		}
 		return output;
@@ -185,15 +176,6 @@ public class Neuron {
 	public void setDelta(Double delta){
 		this.delta = delta;
 	}
-	
-
-	public Double getWeightChange() {
-		return weightChange;
-	}
-
-	public void setWeightChange(Double weightChange) {
-		this.weightChange = weightChange;
-	}
 
 	/** public double getError() {
 		return error;
@@ -244,6 +226,15 @@ public class Neuron {
 		if (isBias){
 			setOutput(bias);
 		}
+	}
+	
+	public MeanSquaredError getError(){
+		return loss;
+	}
+		
+	
+	public ActivationFunction getActivation(){
+		return f;
 	}
 
 }
