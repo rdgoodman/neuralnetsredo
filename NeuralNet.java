@@ -104,12 +104,14 @@ public class NeuralNet {
 		for (Neuron n : nodes.get(layers-1)){
 			// calculates delta
 			Double d = calcOutputDelta(n, targetOutputs.get(target));
-			
+
 			// calculates each weight change
 			for (int w = 0; w < n.getWeights().size(); w++){
+				System.out.println(n.getWeights().get(w) + " -- Output delta: " + d);
+				System.out.println(n.getWeights().get(w) + " -- Output <>w: " + calcOutputWeightChange(n, d, w));
 				n.getWeights().set(w, calcOutputWeightChange(n, d, w));
-			}
-			
+				System.out.println();
+			}			
 			target++;
 		}
 		
@@ -124,6 +126,8 @@ public class NeuralNet {
 		Double delta = -1
 				* n.getError().calcDerivwrtOutput(n.getOutput(), target);
 		delta *= n.getActivation().partialDeriv(n.getOutput());
+		// TODO: testing, remove
+		System.out.println("delta = -1 * " + n.getError().calcDerivwrtOutput(n.getOutput(), target) + " * " + n.getActivation().partialDeriv(n.getOutput()));
 		return delta;
 	}
 	
