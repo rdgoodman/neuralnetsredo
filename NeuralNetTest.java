@@ -31,17 +31,16 @@ public class NeuralNetTest {
 	public void testTrainSingleOutput() {
 		ArrayList<Double> inputs = new ArrayList<Double>();
 		inputs.add(3.0);
-		inputs.add(0.89);
-		inputs.add(-1.0);
+		inputs.add(-0.89);
 
 		ArrayList<Double> expectedOutput = new ArrayList<Double>();
-		expectedOutput.add(3.5);
+		expectedOutput.add(.66);
 
-		NeuralNet net = new NeuralNet(1, 3, inputs, expectedOutput, true);
+		NeuralNet net = new NeuralNet(1, 2, inputs, expectedOutput, true);
 		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 10; i++) {
 			net.train();
 		}
-		 net.print();
+		 //net.print();
 	}
 }

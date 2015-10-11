@@ -100,17 +100,17 @@ public class NeuralNet {
 		// 1) output layer
 		int target = 0;
 		for (Neuron n : nodes.get(layers-1)){
-			System.out.println(n.toString());
+			//System.out.println(n.toString());
 			// calculates delta
 			Double d = calcOutputDelta(n, targetOutputs.get(target));
 
 			// calculates each weight change
 			for (int w = 0; w < n.getWeights().size(); w++){
-				System.out.println(n.getWeights().get(w) + " -- Output delta: " + d);
-				System.out.println(n.getWeights().get(w) + " --  <>w: " + calcOutputWeightChange(n, d, w));
+				//System.out.println(n.getWeights().get(w) + " -- Output delta: " + d);
+				//System.out.println(n.getWeights().get(w) + " --  <>w: " + calcOutputWeightChange(n, d, w));
 				n.addWeightChange(calcOutputWeightChange(n, d, w));
 				//n.getWeights().set(w, n.getWeights().get(w) + calcOutputWeightChange(n, d, w));
-				System.out.println();
+				//System.out.println();
 			}			
 			target++;
 		}
@@ -118,17 +118,17 @@ public class NeuralNet {
 		// 2) hidden layers
 		for (int layer = (layers - 2); layer > 0; layer--) {
 			for (Neuron n : nodes.get(layer)){
-				System.out.println(n.toString());
+				//System.out.println(n.toString());
 				// calculates delta
 				Double d = calcHiddenDelta(n, n.getDepth());
 				
 				// calculates each weight change
 				for (int w = 0; w < n.getWeights().size(); w++){
-					System.out.println(n.getWeights().get(w) + " -- Hidden delta: " + d);
-					System.out.println(n.getWeights().get(w) + " -- <>w: " + calcHiddenWeightChange(n, d, w));
+					//System.out.println(n.getWeights().get(w) + " -- Hidden delta: " + d);
+					//System.out.println(n.getWeights().get(w) + " -- <>w: " + calcHiddenWeightChange(n, d, w));
 					n.addWeightChange(calcHiddenWeightChange(n, d, w));
 					//n.getWeights().set(w, n.getWeights().get(w) + calcHiddenWeightChange(n, d, w));
-					System.out.println();
+					//System.out.println();
 				}
 			}
 		}
@@ -150,7 +150,7 @@ public class NeuralNet {
 	}
 	/** Calculates weight change for a hidden node */
 	protected Double calcHiddenWeightChange(Neuron n, Double delta, int weightIndex){
-		System.out.println("delta_w = " + eta + " * " + delta + " * " + n.getWeights().get(weightIndex));
+		//System.out.println("delta_w = " + eta + " * " + delta + " * " + n.getWeights().get(weightIndex));
 		return (eta * delta * n.getWeights().get(weightIndex));
 	}
 	
@@ -161,13 +161,14 @@ public class NeuralNet {
 		
 		// loops through next layer
 		for (Neuron desc : n.getDescendants()) {
-			System.out.println("Calculating delta for " + n.toString());
+			//System.out.println("Calculating delta for " + n.toString());
 			// factors in descendants' errors
 			// should be weightIndex + 1 because weight to bias node always 1st
 			sumDS += (desc.getDelta() * desc.getWeights().get(weightIndex+1));
-			System.out.println("*** multiplying by weight " + desc.getWeights().get(weightIndex+1) + " at index " + (weightIndex+1));
+			//System.out.println("*** multiplying by weight " + desc.getWeights().get(weightIndex+1) + " at index " + (weightIndex+1));
 		}
 		return delta * sumDS;
+		//return;
 	}
 	
 	
@@ -177,13 +178,13 @@ public class NeuralNet {
 		delta *= n.getActivation().partialDeriv(n.getOutput());
 		n.setDelta(delta);
 		// TODO: testing, remove
-		System.out.println("delta = " + n.getError().calcDerivwrtOutput(n.getOutput(), target) + " * " + n.getActivation().partialDeriv(n.getOutput()));
+		//System.out.println("delta = " + n.getError().calcDerivwrtOutput(n.getOutput(), target) + " * " + n.getActivation().partialDeriv(n.getOutput()));
 		return delta;
 	}
 	
 	/** Calculates weight change for an output node */
 	protected Double calcOutputWeightChange(Neuron n, Double delta, int weightIndex){
-		System.out.println("delta_w = " + eta + " * " + delta + " * " + n.getInputs().get(weightIndex));
+		//System.out.println("delta_w = " + eta + " * " + delta + " * " + n.getInputs().get(weightIndex));
 		return (eta * delta * n.getInputs().get(weightIndex));
 	}
 	
