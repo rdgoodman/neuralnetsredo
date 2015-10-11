@@ -13,7 +13,7 @@ public class MeanSquaredError {
 	 */
 	public Double calcDerivwrtOutput(Double output, Double target){
 		//System.out.println("********** (" + target + " - " + output + ") **********");
-		return (target - output);
+		return (output - target);
 	}
 
 }
